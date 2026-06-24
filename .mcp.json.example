@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ie-eli-mcp": {
+      "command": "ie-eli-mcp",
+      "env": {
+        "IE_ELI_BASE_URL": "https://www.irishstatutebook.ie",
+        "IE_ELI_CACHE_DIR": "~/.matematic/cache/ie-eli",
+        "IE_ELI_AUDIT_DIR": "~/.matematic/audit"
+      }
+    }
+  }
+}
