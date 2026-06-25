@@ -1,5 +1,7 @@
 # ie-eli-mcp
 
+<!-- mcp-name: io.github.matematicsolutions/ie-eli-mcp -->
+
 An MCP server for the **Irish Statute Book** (`irishstatutebook.ie`), the official source of
 Irish legislation. It grounds Irish acts and statutory instruments (SIs) by year + number,
 returning metadata and the full enacted text, with verifiable ELI identifiers and Irish citations.
