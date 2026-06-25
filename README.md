@@ -2,6 +2,23 @@
 
 <!-- mcp-name: io.github.matematicsolutions/ie-eli-mcp -->
 
+
+## Instalacja (jedna komenda)
+
+Opublikowany na PyPI + MCP Registry (`io.github.matematicsolutions/ie-eli-mcp`). Uruchomienie bez klonowania:
+
+```bash
+uvx ie-eli-mcp
+```
+
+Konfiguracja klienta MCP (stdio):
+
+```json
+{ "mcpServers": { "ie-eli-mcp": { "command": "uvx", "args": ["ie-eli-mcp"] } } }
+```
+
+(Budowanie ze źródeł — niżej.)
+
 An MCP server for the **Irish Statute Book** (`irishstatutebook.ie`), the official source of
 Irish legislation. It grounds Irish acts and statutory instruments (SIs) by year + number,
 returning metadata and the full enacted text, with verifiable ELI identifiers and Irish citations.
