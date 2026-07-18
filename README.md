@@ -3,40 +3,43 @@
 <!-- mcp-name: io.github.matematicsolutions/ie-eli-mcp -->
 
 
-## Instalacja (jedna komenda)
+## Install (one command)
 
-Opublikowany na PyPI + MCP Registry (`io.github.matematicsolutions/ie-eli-mcp`). Uruchomienie bez klonowania:
+Published on PyPI + MCP Registry (`io.github.matematicsolutions/ie-eli-mcp`). Run without cloning:
 
 ```bash
 uvx ie-eli-mcp
 ```
 
-Konfiguracja klienta MCP (stdio):
+Configure your MCP client (stdio):
 
 ```json
 { "mcpServers": { "ie-eli-mcp": { "command": "uvx", "args": ["ie-eli-mcp"] } } }
 ```
 
-### Windows 11 ze Smart App Control
+### Windows 11 with Smart App Control
 
-Smart App Control blokuje niepodpisane pliki wykonywalne, a `uvx.exe`, `pip.exe`
-i generowany przy instalacji `ie-eli-mcp.exe` podpisane nie sa. `python.exe`
-z python.org jest podpisany przez Python Software Foundation, wiec uruchomienie
-przez modul omija blokade:
+Smart App Control blocks unsigned executables, which covers `uvx.exe`, `pip.exe`
+and the `ie-eli-mcp.exe` launcher that pip writes at install time. The `python.exe` and
+`py.exe` from the python.org installer are signed by the Python Software
+Foundation, so running the module through the interpreter works:
 
 ```bash
 python -m pip install ie-eli-mcp
 python -m ie_eli_mcp
 ```
 
+`pip.exe` is blocked for the same reason, so install with `python -m pip`, not
+`pip install`. If `python` is not on PATH, use the Windows launcher: `py -3 -m ie_eli_mcp`.
+
 ```json
 { "mcpServers": { "ie-eli-mcp": { "command": "python", "args": ["-m", "ie_eli_mcp"] } } }
 ```
 
-Nie wylaczaj Smart App Control, zeby to obejsc - wylaczenia nie da sie cofnac
-bez ponownej instalacji systemu.
+Do not turn Smart App Control off to work around this - it cannot be re-enabled
+without reinstalling Windows.
 
-(Budowanie ze źródeł — niżej.)
+Building from source: see [Install](#install).
 
 An MCP server for the **Irish Statute Book** (`irishstatutebook.ie`), the official source of
 Irish legislation. It grounds Irish acts and statutory instruments (SIs) by year + number,
