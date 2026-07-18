@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ie-eli-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for the Irish Statute Book (irishstatutebook.ie) — ground Irish acts and SIs by year/number with ELI identifiers and verifiable citations."
 readme = "README.md"
 license = { text = "Apache-2.0" }
