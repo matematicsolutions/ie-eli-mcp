@@ -62,6 +62,7 @@ contract, Irish Statute Book source.
 |---|---|
 | `ie_get_act` | Metadata for an act or SI by year + number + type. |
 | `ie_get_text` | Full enacted text (`html` or `xml`). |
+| `ie_coverage` | Declare what this connector covers, when each family was captured, and - explicitly - what it does NOT cover. Every gap carries a fallback. |
 
 Every response carries the contract: `eli_uri` (e.g.
 `https://www.irishstatutebook.ie/eli/2018/act/7/enacted/en`), `human_readable_citation`
