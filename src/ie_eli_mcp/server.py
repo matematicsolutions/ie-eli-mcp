@@ -36,6 +36,7 @@ This MCP server exposes the Irish Statute Book (irishstatutebook.ie), the offici
 
 ## Hard constraints
 
+- **Do not answer past the edge of this corpus** - when a search comes back empty, or the question touches material this connector does not carry, call `ie_coverage` and relay what it says is missing. Absence here is not absence in the law.
 - **No free-text search** - addressed by year + number + type, not keywords. You must know the coordinates (Irish citations give them, e.g. "No. 7 of 2018"). Relay the `dataset_note`.
 - **ELI is the key to citability** - the ELI is the irishstatutebook.ie/eli/... URL; do not invent it.
 - **Enacted text only** - revised/consolidated versions are separate and not covered here.
