@@ -1,0 +1,415 @@
+{
+  "package_version": "0.3.3",
+  "tools": {
+    "ie_coverage": {
+      "descriptor": {
+        "annotations": {
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true,
+          "readOnlyHint": true
+        },
+        "description": "Declare what this connector covers, how it is sourced, and what it does NOT cover.\n\nCall this before telling a user that the law \"does not contain\" something, and whenever\na search comes back empty: the absence may be a gap in this connector rather than in the\nlaw. Every gap carries a fallback saying where to look instead.\n\nReturns:\n    ``Coverage`` with families, an as-of note, and a non-empty list of known gaps.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        },
+        "meta": {
+          "fastmcp": {
+            "tags": []
+          }
+        },
+        "name": "ie_coverage",
+        "outputSchema": {
+          "additionalProperties": true,
+          "description": "What this connector covers, how it is sourced, and what it does not cover.",
+          "properties": {
+            "as_of_note": {
+              "description": "States what the dates mean, and what they do not promise.",
+              "type": "string"
+            },
+            "families": {
+              "items": {
+                "additionalProperties": true,
+                "description": "One data family this connector exposes.",
+                "properties": {
+                  "captured_at": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "Date this family was last captured (ISO). None when queried live."
+                  },
+                  "live": {
+                    "default": true,
+                    "description": "True when queried live instead of from a snapshot.",
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "description": "Data family, e.g. 'Federal legislation'.",
+                    "type": "string"
+                  },
+                  "source": {
+                    "description": "Official source the data comes from.",
+                    "type": "string"
+                  },
+                  "tool": {
+                    "description": "Tool or tools that reach this family.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "tool",
+                  "source"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "known_gaps": {
+              "description": "Never empty. An empty list would mean 'not checked', not 'no gaps'.",
+              "items": {
+                "additionalProperties": true,
+                "description": "A known, named hole in this connector's coverage - plus the way around it.",
+                "properties": {
+                  "fallback": {
+                    "description": "Where to go instead.",
+                    "type": "string"
+                  },
+                  "family": {
+                    "description": "Which family the gap belongs to.",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "Stable gap identifier.",
+                    "type": "string"
+                  },
+                  "missing": {
+                    "description": "What is NOT available through this connector.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "family",
+                  "missing",
+                  "fallback"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "default": "ok",
+              "enum": [
+                "ok",
+                "degraded",
+                "failed"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "as_of_note"
+          ],
+          "type": "object"
+        }
+      },
+      "sha256": "a476655d494c9bb113c1bd03049378fa7dbbf16c81c8be17346ad8343716c8d9"
+    },
+    "ie_get_act": {
+      "descriptor": {
+        "annotations": {
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true,
+          "readOnlyHint": true
+        },
+        "description": "Fetch Irish act / SI metadata by coordinates.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "doc_type": {
+              "default": "act",
+              "description": "``\"act\"`` (default) or ``\"si\"`` (statutory instrument).",
+              "enum": [
+                "act",
+                "si"
+              ],
+              "type": "string"
+            },
+            "number": {
+              "description": "e.g. ``7``.",
+              "type": "integer"
+            },
+            "year": {
+              "description": "e.g. ``2018``.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "year",
+            "number"
+          ],
+          "type": "object"
+        },
+        "meta": {
+          "fastmcp": {
+            "tags": []
+          }
+        },
+        "name": "ie_get_act",
+        "outputSchema": {
+          "additionalProperties": true,
+          "description": "An Irish act or statutory instrument (enacted).",
+          "properties": {
+            "dataset_note": {
+              "default": "Irish Statute Book serves the ENACTED text of acts and statutory instruments (SIs) by year + number. Discovery is by coordinates (no keyword-search API here). Revised (consolidated) versions live separately and are not covered by this MVP.",
+              "type": "string"
+            },
+            "date_enacted": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "doc_type": {
+              "default": "act",
+              "enum": [
+                "act",
+                "si"
+              ],
+              "type": "string"
+            },
+            "eli_uri": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "human_readable_citation": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "number": {
+              "type": "integer"
+            },
+            "source_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "title": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "year": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "year",
+            "number"
+          ],
+          "type": "object"
+        }
+      },
+      "sha256": "e039a2227c00a4068f6a6837eebf2d75a0cd4e6521496c566790794fe8810c8d"
+    },
+    "ie_get_text": {
+      "descriptor": {
+        "annotations": {
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true,
+          "readOnlyHint": true
+        },
+        "description": "Fetch the full enacted text of an Irish act / SI.",
+        "inputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "doc_type": {
+              "default": "act",
+              "description": "``\"act\"`` (default) or ``\"si\"``.",
+              "enum": [
+                "act",
+                "si"
+              ],
+              "type": "string"
+            },
+            "format": {
+              "default": "html",
+              "description": "``\"html\"`` (default) or ``\"xml\"``.",
+              "enum": [
+                "xml",
+                "html"
+              ],
+              "type": "string"
+            },
+            "number": {
+              "description": "e.g. ``7``.",
+              "type": "integer"
+            },
+            "year": {
+              "description": "e.g. ``2018``.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "year",
+            "number"
+          ],
+          "type": "object"
+        },
+        "meta": {
+          "fastmcp": {
+            "tags": []
+          }
+        },
+        "name": "ie_get_text",
+        "outputSchema": {
+          "additionalProperties": true,
+          "description": "Result of ``ie_get_text``.",
+          "properties": {
+            "byte_size": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "content": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "content_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "dataset_note": {
+              "default": "Irish Statute Book serves the ENACTED text of acts and statutory instruments (SIs) by year + number. Discovery is by coordinates (no keyword-search API here). Revised (consolidated) versions live separately and are not covered by this MVP.",
+              "type": "string"
+            },
+            "doc_type": {
+              "default": "act",
+              "enum": [
+                "act",
+                "si"
+              ],
+              "type": "string"
+            },
+            "eli_uri": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "format": {
+              "default": "html",
+              "enum": [
+                "xml",
+                "html"
+              ],
+              "type": "string"
+            },
+            "human_readable_citation": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "number": {
+              "type": "integer"
+            },
+            "source_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "year": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "year",
+            "number"
+          ],
+          "type": "object"
+        }
+      },
+      "sha256": "8d62b96fb19b513579f5feebf1563f1a3d480fa6aa7b191c4d904ea7aff87a9e"
+    }
+  },
+  "toolset_sha256": "8bf23453a4503066b6e58647ae02d6364e0fc4afff7cacd1f094ce9205fea220"
+}
